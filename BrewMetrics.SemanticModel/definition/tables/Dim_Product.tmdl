@@ -1,0 +1,43 @@
+table Dim_Product
+	lineageTag: 01561c5b-2fde-4805-81bb-10f8c0d316fb
+
+	column category
+		dataType: string
+		lineageTag: 4a353990-8586-48d9-adb0-34256e4603b4
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column item
+		dataType: string
+		lineageTag: 6f4f617c-8057-4ef1-acc2-f3b34119e2bf
+		summarizeBy: none
+		sourceColumn: item
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: string
+		lineageTag: 23130e96-087b-4588-8e7a-f19c73fd4670
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Product = m
+		mode: import
+		source =
+				let
+				    Source = Fact_Sales,
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"category", "item"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Other Columns"),
+				    #"Added Custom" = Table.AddColumn(#"Removed Duplicates", "ProductKey", each [category] & "-" & [item]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"ProductKey", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
