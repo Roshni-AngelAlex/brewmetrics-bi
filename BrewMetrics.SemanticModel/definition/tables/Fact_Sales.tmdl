@@ -1,6 +1,9 @@
 table Fact_Sales
 	lineageTag: 6e636ee0-08f7-428a-b7cd-41f6da288112
 
+	measure 'Total Sales' = SUM(Fact_Sales[sales_amount])
+		lineageTag: 9eefb162-99b8-4e47-acba-fed15edff7bb
+
 	column sale_id
 		dataType: int64
 		formatString: 0
