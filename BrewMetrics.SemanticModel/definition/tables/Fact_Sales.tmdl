@@ -4,6 +4,29 @@ table Fact_Sales
 	measure 'Total Sales' = SUM(Fact_Sales[sales_amount])
 		lineageTag: 9eefb162-99b8-4e47-acba-fed15edff7bb
 
+	measure 'MoM Sales Growth %' = ```
+			VAR CurrentSales = [Total Sales]
+			VAR PreviousMonthSales =
+				CALCULATE(
+					[Total Sales],
+					DATEADD('Dim_Date'[date], -1, MONTH)
+				)
+			RETURN
+				DIVIDE(CurrentSales - PreviousMonthSales, PreviousMonthSales)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ebce09e9-5303-477e-8d44-e970e461ac34
+
+	measure 'Running Total Sales' =
+			CALCULATE(
+				[Total Sales],
+				FILTER(
+					ALL('Dim_Date'[date]),
+					'Dim_Date'[date] <= MAX('Dim_Date'[date])
+				)
+			)
+
 	column sale_id
 		dataType: int64
 		formatString: 0
