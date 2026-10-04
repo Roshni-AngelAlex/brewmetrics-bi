@@ -26,15 +26,36 @@ table Fact_Sales
 					'Dim_Date'[date] <= MAX('Dim_Date'[date])
 				)
 			)
+		lineageTag: 845f675d-5974-4673-a03f-ef6381559527
 
 	measure 'City Sales Rank' =
-		RANKX(
-			ALL('Dim_City'[city]),
-			[Total Sales],
-			,
-			DESC,
-			DENSE
-		)
+			RANKX(
+				ALL('Dim_City'[city]),
+				[Total Sales],
+				,
+				DESC,
+				DENSE
+			)
+		lineageTag: 90c69915-dfb5-4e88-a8b0-985e179463ad
+
+	measure 'Cold Brew Share of Coffee %' = ```
+			DIVIDE(
+				CALCULATE(
+					[Total Sales],
+					'Fact_Sales'[category] = "Coffee",
+					'Fact_Sales'[item] = "Cold Brew"
+				),
+				CALCULATE(
+					[Total Sales],
+					'Fact_Sales'[category] = "Coffee",
+					REMOVEFILTERS('Fact_Sales'[item])
+				)
+			)
+			
+			```
+		lineageTag: df49e3cc-03b5-474a-b014-a475534eba1f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column sale_id
 		dataType: int64

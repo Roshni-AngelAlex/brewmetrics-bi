@@ -124,3 +124,31 @@ Added `City Sales Rank` to `Fact_Sales.tmdl:30` using `RANKX`, descending order,
 Validation completed with no errors.
 
 Made changes.
+
+I’ll verify the current `Fact_Sales` measure block and the exact category/item column names, then add the share measure using `[Total Sales]` with a Coffee-only denominator and Cold Brew numerator.
+
+Searched for regex `column category|column item|measure 'Total Sales'` (`**/BrewMetrics.SemanticModel/definition/tables/*.tmdl`), 5 results
+
+Read , lines 1 to 55
+
+Read , lines 1 to 40
+
+The model exposes `Fact_Sales[category]` and `Fact_Sales[item]` directly, so I’ll use those fields to avoid relying on the model’s limited product relationship. The denominator will clear item filtering while fixing category to Coffee; the numerator will additionally fix item to Cold Brew.
+
+Generating patch (24 lines) in 
+
+
+```
+
+```
+The percentage measure is added with the requested numerator and denominator logic and an explicit percent format. I’m validating the edited TMDL and confirming the measure name plus both category/item filters.
+
+Checked , no problems found
+
+Searched for regex `measure 'Cold Brew Share of Coffee %'|\[category\] = "Coffee"|\[item\] = "Cold Brew"|REMOVEFILTERS\('Fact_Sales'\[item\]\)` (`**/BrewMetrics.SemanticModel/definition/tables/Fact_Sales.tmdl`), 5 results
+
+Added `Cold Brew Share of Coffee %` to `Fact_Sales.tmdl:39`. It calculates Cold Brew sales divided by total Coffee sales using `[Total Sales]`, formatted as a percentage.
+
+Validation completed with no errors.
+
+Made changes.
