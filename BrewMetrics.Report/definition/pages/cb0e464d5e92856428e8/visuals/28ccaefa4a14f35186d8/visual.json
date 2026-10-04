@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
-  "name": "bdaa8cde4bd2e1983b4f",
+  "name": "28ccaefa4a14f35186d8",
   "position": {
-    "x": 10,
-    "y": 0,
-    "z": 0,
-    "height": 280,
-    "width": 280,
-    "tabOrder": 0
+    "x": 220.24087505653361,
+    "y": 142.02448952243756,
+    "z": 2,
+    "height": 164.66607480862325,
+    "width": 277.87400123955177,
+    "tabOrder": 2
   },
   "visual": {
     "visualType": "cardVisual",
@@ -23,11 +23,11 @@
                       "Entity": "Fact_Sales"
                     }
                   },
-                  "Property": "Total Sales"
+                  "Property": "Cold Brew Share of Coffee %"
                 }
               },
-              "queryRef": "Fact_Sales.Total Sales",
-              "nativeQueryRef": "Total Sales"
+              "queryRef": "Fact_Sales.Cold Brew Share of Coffee %",
+              "nativeQueryRef": "Cold Brew Share of Coffee %"
             }
           ]
         }
@@ -42,7 +42,7 @@
                     "Entity": "Fact_Sales"
                   }
                 },
-                "Property": "Total Sales"
+                "Property": "Cold Brew Share of Coffee %"
               }
             },
             "direction": "Descending"
@@ -56,7 +56,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "ddaa815cc000bd3cdfbc",
+        "name": "5ac3dd9997caffd23b63",
         "field": {
           "Measure": {
             "Expression": {
@@ -64,7 +64,7 @@
                 "Entity": "Fact_Sales"
               }
             },
-            "Property": "Total Sales"
+            "Property": "Cold Brew Share of Coffee %"
           }
         },
         "type": "Advanced"

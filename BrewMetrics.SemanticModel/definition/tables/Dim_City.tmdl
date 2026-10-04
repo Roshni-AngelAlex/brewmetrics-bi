@@ -9,6 +9,13 @@ table Dim_City
 
 		annotation SummarizationSetBy = Automatic
 
+	hierarchy 'city Hierarchy'
+		lineageTag: 5c8338c3-2b59-49fe-9082-268991445884
+
+		level city
+			lineageTag: 8b8ac434-d4af-486d-9724-74fb52cae55b
+			column: city
+
 	partition Dim_City = m
 		mode: import
 		source =
