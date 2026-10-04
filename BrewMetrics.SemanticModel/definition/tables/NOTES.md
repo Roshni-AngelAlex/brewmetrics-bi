@@ -99,3 +99,28 @@ CALCULATE(
     'Dim_Date'[date] <= MAX('Dim_Date'[date])
 )
 ```
+I’ll verify the current measure block and the city dimension column name, then add the `RANKX` measure using the existing `[Total Sales]` measure.
+
+Read , lines 1 to 45
+
+Read 
+
+`Dim_City[city]` is the correct grouping column, and `[Total Sales]` is available in the same table. I’ll add a dense descending rank over all cities, which gives the highest-selling city rank 1 and keeps other report filters active.
+
+Generating patch (17 lines) in 
+
+
+```
+
+```
+The `City Sales Rank` measure is added with descending dense ranking over `Dim_City[city]`. I’m running the focused TMDL error check and confirming the `RANKX` expression is present.
+
+Checked , no problems found
+
+Searched for regex `measure 'City Sales Rank'|RANKX\(|ALL\('Dim_City'\[city\]\)|DESC|DENSE` (`**/BrewMetrics.SemanticModel/definition/tables/Fact_Sales.tmdl`), 5 results
+
+Added `City Sales Rank` to `Fact_Sales.tmdl:30` using `RANKX`, descending order, and dense ranking. Rank 1 represents the highest-selling city.
+
+Validation completed with no errors.
+
+Made changes.
