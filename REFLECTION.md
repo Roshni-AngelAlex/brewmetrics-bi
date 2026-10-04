@@ -1,0 +1,7 @@
+# REFLECTION.md
+
+Working with Copilot inside the `.SemanticModel` folder changed how I approached DAX more than I expected. Some measures — Running Total Sales and City Sales Rank — were correct on the first suggestion, properly using `ALL()` to avoid filter-context bugs that would otherwise break the moment a slicer was applied. The MoM Growth measure also reasoned correctly about using `DATEADD` instead of `SAMEPERIODLASTYEAR`, since our dataset only spans a few months and year-over-year comparisons would have returned blank everywhere.
+
+The real correction came with Total Sales: adding Copilot's suggestion without first checking whether the measure already existed created a duplicate TMDL object, which broke the model until I found and removed the duplicate definition. A smaller, repeated issue was `formatString` ending up inside the DAX formula bar instead of as its own TMDL property — this happened on two separate measures and taught me to always set number formatting through the Measure Tools ribbon instead of hand-editing it into the formula.
+
+Working with full commit history changed my process compared to a normal single-file Power BI lab. Committing each measure separately forced me to test and validate one piece before moving to the next, instead of iterating on everything at once and only discovering a broken relationship or duplicate measure at the very end. It also meant each correction — like the duplicate Total Sales bug — is traceable to a specific commit rather than buried inside one large, undocumented save.
